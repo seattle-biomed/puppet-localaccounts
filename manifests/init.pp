@@ -28,19 +28,22 @@
 #
 # Copyright 2012 Andrew Leonard, Seattle Biomedical Research Institute
 #
-class localaccounts($groups, $users, $sshkeys) {
+class localaccounts(
+  $groups = {},
+  $users = {},
+  $sshkeys = {}
+  ) {
 
   $defaults = { ensure => present }
-  
+
   $user_defaults = {
     ensure => present,
     managehome => true,
     shell => '/bin/bash' }
-  
+
   create_resources(group, $groups, $defaults)
 
   create_resources(user, $users, $user_defaults)
 
   create_resources(ssh_authorized_key, $sshkeys, $defaults)
-  
 }
